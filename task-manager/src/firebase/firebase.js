@@ -1,17 +1,17 @@
 import { initializeApp } from "firebase/app";
 import { getAuth, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
-
+import { getAnalytics } from "firebase/analytics";
 // Your Firebase configuration
 const firebaseConfig = {
-  apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
-  authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
-  projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID,
-  storageBucket: process.env.REACT_APP_FIREBASE_STORAGE_BUCKET,
-  messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID,
-  appId: process.env.REACT_APP_FIREBASE_APP_ID,
+  apiKey: "AIzaSyChTgLfLuND-rXDlEXZwlpG8PGtpy56oGI",
+  authDomain: "chuckle-tasker.firebaseapp.com",
+  projectId: "chuckle-tasker",
+  storageBucket: "chuckle-tasker.appspot.com",
+  messagingSenderId: "480370636541",
+  appId: "1:480370636541:web:33ee5c51ca9100181a3094",
+  measurementId: "G-JTC7H4JZJM"
 };
-
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
@@ -23,4 +23,5 @@ const signInWithGoogle = async () => {
   await signInWithPopup(auth, provider);
 };
 
+const analytics = getAnalytics(app);
 export { auth, db, signInWithGoogle };

@@ -1,21 +1,31 @@
-import React from 'react';
-import TaskItem from './TaskItem';
+import { useEffect } from 'react';
+import moment from 'moment';
 
-const TaskList = ({ tasks, onEdit, onDelete, onToggleComplete }) => {
+const notifyUser = (task) => {
+  const taskDateTime = moment(`${task.date} ${task.time}`, 'YYYY-MM-DD HH:mm');
+  const timeUntilTask = taskDateTime.diff(moment());
+
+  if (timeUntilTask > 0) {
+    setTimeout(() => {
+      alert(`Reminder: Your task "${task.name}" is due now!`);
+    }, timeUntilTask);
+  }
+};
+
+const TaskList = ({ tasks }) => {
+  useEffect(() => {
+    tasks.forEach(notifyUser);
+  }, [tasks]);
+
   return (
-    <div className="task-list">
-      <h3>Your Tasks</h3>
-      <ul>
-        {tasks.map(task => (
-          <TaskItem 
-            key={task.id} 
-            task={task} 
-            onEdit={onEdit} 
-            onDelete={onDelete} 
-            onToggleComplete={onToggleComplete} 
-          />
-        ))}
-      </ul>
+    <div>
+      {tasks.map((task) => (
+        <div key={task.id}>
+          <h3>{task.name}</h3>
+          <p>{task.description}</p>
+          <p>Due: {task.date} at {task.time}</p>
+        </div>
+      ))}
     </div>
   );
 };
